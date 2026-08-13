@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { FadeIn } from "@/components/ui/motion-primitives";
-import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { projects as PROJECTS, type Project } from "@/lib/content";
 
 export type ProjectsProps = {
@@ -71,11 +70,9 @@ function ProjectCard({
       delay={Math.min(index * 0.06, 0.3)}
       className="mb-6 break-inside-avoid md:mb-7"
     >
-      <CardContainer containerClassName="block w-full py-0" className="w-full">
-        <CardBody className="project-card flex h-auto w-full cursor-pointer flex-col gap-4 rounded-3xl border border-foreground/8 bg-background p-3 sm:p-3.5">
-          <CardItem
-            as="header"
-            translateZ={40}
+      <div className="block w-full py-0">
+        <div className="project-card flex h-auto w-full cursor-pointer flex-col gap-4 rounded-3xl border border-foreground/8 bg-background p-3 sm:p-3.5 hover:bg-foreground/[0.02] transition-colors">
+          <header
             className="flex w-full items-center gap-2.5 px-1 pt-2"
           >
             <span className="border-foreground/10 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border bg-background">
@@ -87,9 +84,9 @@ function ProjectCard({
             <span className="text-sm font-medium tracking-tight text-foreground">
               {project.iconLabel}
             </span>
-          </CardItem>
+          </header>
 
-          <CardItem translateZ={80} className="w-full">
+          <div className="w-full">
             <div
               className="project-card__image ring-foreground/5 relative w-full overflow-hidden rounded-2xl bg-foreground/5 ring-1"
               style={{ aspectRatio: project.imageRatio }}
@@ -105,11 +102,9 @@ function ProjectCard({
                 />
               </div>
             </div>
-          </CardItem>
+          </div>
 
-          <CardItem
-            as="div"
-            translateZ={50}
+          <div
             className="flex w-full flex-col gap-2.5 px-1 pb-1"
           >
             <h3 className="text-[20px] font-medium leading-[1.2] tracking-tight text-foreground sm:text-[22px]">
@@ -118,11 +113,9 @@ function ProjectCard({
             <p className="text-[14px] leading-normal tracking-tight text-foreground/65 sm:text-[15px]">
               {project.description}
             </p>
-          </CardItem>
+          </div>
 
-          <CardItem
-            as="div"
-            translateZ={30}
+          <div
             className="flex w-full items-center justify-between px-1 pb-2"
           >
             <p className="text-[12px] tracking-tight text-foreground/50">
@@ -150,9 +143,9 @@ function ProjectCard({
                 </Link>
               )}
             </div>
-          </CardItem>
-        </CardBody>
-      </CardContainer>
+          </div>
+        </div>
+      </div>
     </FadeIn>
   );
 }
