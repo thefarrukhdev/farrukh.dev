@@ -76,7 +76,7 @@ export const projects: Project[] = [
     imageRatio: 16 / 10,
     image: "/projects/paymex-projects.png",
     imageAlt: "PAYMEX Telegram Mini App screenshot",
-    githubUrl: "https://github.com/FarrukhDev-io/paymex",
+    githubUrl: "https://github.com/thefarrukhdev/paymex",
     demoUrl: "https://paymex.vercel.app/",
   },
   {
@@ -91,7 +91,7 @@ export const projects: Project[] = [
     imageRatio: 16 / 10,
     image: "/projects/kokand_university_lightMode.png",
     imageAlt: "Kokand University platform screenshot",
-    githubUrl: "https://github.com/FarrukhDev-io/kokand_university",
+    githubUrl: "https://github.com/thefarrukhdev/kokand_university",
     demoUrl: "https://kualumni.uz/",
   },
   {
@@ -105,7 +105,7 @@ export const projects: Project[] = [
     imageRatio: 16 / 10,
     image: "/projects/kelajakka_qadam_markazi_lightMode.png",
     imageAlt: "Kelajakka Qadam Markazi website screenshot",
-    githubUrl: "https://github.com/FarrukhDev-io/KelajakkaQadam",
+    githubUrl: "https://github.com/thefarrukhdev/KelajakkaQadam",
     demoUrl: "https://kelajakka-qadam-markazi.vercel.app/",
   },
 ];
@@ -221,7 +221,7 @@ export const contact = {
   socials: {
     email: "mailto:farrukh.front.dev@gmail.com",
     linkedin: "https://www.linkedin.com/in/farrukhdjumayev",
-    github: "https://github.com/FarrukhDev-io",
+    github: "https://github.com/thefarrukhdev",
   },
   copyright: "2026 © Farrukh Djumayev",
   role: "Frontend Developer",
