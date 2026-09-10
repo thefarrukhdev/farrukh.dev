@@ -29,7 +29,7 @@ To run this project locally, ensure you have [Node.js](https://nodejs.org/) and 
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/FarrukhDev-io/farrukh.dev.git
+git clone https://github.com/thefarrukhdev/farrukh.dev.git
 
 # 2. Navigate to the project directory
 cd farrukh.dev
@@ -53,4 +53,4 @@ Visit `http://localhost:3000` to view the application.
 
 ## 👨‍💻 Author
 **Farrukh Jumayev**
-- GitHub: [@FarrukhDev-io](https://github.com/FarrukhDev-io)
+- GitHub: [@thefarrukhdev](https://github.com/thefarrukhdev)
