@@ -20,7 +20,7 @@ export const hero = {
   name: "I\u2019m Farrukh",
   headingLines: ["I build things", "for the web."] as const,
   tagline:
-    "Frontend Developer focused on React & Next.js — fast, accessible, scalable, and built to last.",
+    "Software Engineer specializing in modern web architecture, high-performance interfaces, and full-stack systems with React, Next.js, TypeScript, and NestJS.",
   portrait: {
     src: "/farrukh.jpg",
     alt: "Farrukh Djumayev portrait",
@@ -55,14 +55,44 @@ export const projects: Project[] = [
     icon: Briefcase,
     iconLabel: "School 21 CareerHub",
     title:
-      "End-to-end career & job placement platform for School 21 students and tech employers.",
+      "Institutional career & placement platform connecting 500+ School 21 engineers with tech employers.",
     description:
-      "Engineered the frontend of a comprehensive career platform enabling School 21 students to connect with tech employers, apply for vacancies, and track applications. Implemented interactive dashboards, student portfolios, job filters, and secure authentication workflows using Next.js, React, and TailwindCSS / ShadCN UI.",
-    meta: "Next.js · React · TypeScript · Tailwind CSS · ShadCN UI, 2026",
+      "Engineered the institutional career placement portal connecting 500+ active software engineers from School 21 (42 Network) with tech employers. Implemented authenticated student portfolios, multi-attribute vacancy search filters, and an administrative candidate tracking pipeline. Built accessible, WCAG-compliant UI primitives with ShadCN and Radix UI, achieving 98+ Google Lighthouse scores.",
+    meta: "Next.js 15 · TypeScript · Tailwind CSS · ShadCN UI · REST APIs, 2026",
     imageRatio: 16 / 10,
     image: "/projects/careerhub.png",
     imageAlt: "School 21 CareerHub screenshot",
     demoUrl: "https://careerhub.21-school.uz/",
+  },
+  {
+    id: "safaar",
+    icon: Building2,
+    iconLabel: "Safaar Booking",
+    title:
+      "Full-stack accommodation and travel booking monorepo with client portal and administrative dashboard.",
+    description:
+      "Architected a scalable full-stack accommodation booking monorepo with dedicated client reservation portal and administrative property dashboard. Designed relational PostgreSQL schemas with atomic transactions and isolation levels to handle room reservation workflows and eliminate race conditions. Implemented role-based access control (RBAC) and Dockerized microservices.",
+    meta: "Next.js 15 · NestJS · TypeScript · PostgreSQL · Prisma · Docker, 2026",
+    imageRatio: 16 / 10,
+    image: "/projects/safaar.png",
+    imageAlt: "Safaar Travel & Accommodation Platform screenshot",
+    githubUrl: "https://github.com/thefarrukhdev/safaar",
+    demoUrl: "https://github.com/thefarrukhdev/safaar",
+  },
+  {
+    id: "kokand-university",
+    icon: BookOpen,
+    iconLabel: "Kokand University",
+    title:
+      "Alumni employment tracking & administrative analytics platform for Kokand University.",
+    description:
+      "Developed an administrative analytics portal and vacancy hub for university graduates and corporate recruiters. Constructed interactive data visualization dashboards for administrative staff to monitor graduate placement statistics and employment trends, streamlining student application workflows and reducing API roundtrip latency by 35%.",
+    meta: "Next.js · React · TypeScript · Tailwind CSS · REST APIs, 2025",
+    imageRatio: 16 / 10,
+    image: "/projects/kokand_university_lightMode.png",
+    imageAlt: "Kokand University platform screenshot",
+    githubUrl: "https://github.com/thefarrukhdev/kokand_university",
+    demoUrl: "https://kualumni.uz/",
   },
   {
     id: "paymex",
@@ -78,35 +108,6 @@ export const projects: Project[] = [
     imageAlt: "PAYMEX Telegram Mini App screenshot",
     githubUrl: "https://github.com/thefarrukhdev/paymex",
     demoUrl: "https://paymex.vercel.app/",
-  },
-  {
-    id: "kokand-university",
-    icon: Building2,
-    iconLabel: "Kokand University",
-    title:
-      "Vacancies & Analytics Platform for Kokand University, centralizing job postings and applicant tracking.",
-    description:
-      "Engineered a vacancies and analytics platform for Kokand University, centralizing job postings, automating applicant tracking, and constructing dynamic reporting dashboards for administration to support data-driven decision-making.",
-    meta: "Next.js · React · TypeScript · Tailwind CSS, 2025",
-    imageRatio: 16 / 10,
-    image: "/projects/kokand_university_lightMode.png",
-    imageAlt: "Kokand University platform screenshot",
-    githubUrl: "https://github.com/thefarrukhdev/kokand_university",
-    demoUrl: "https://kualumni.uz/",
-  },
-  {
-    id: "kelajakka-qadam",
-    icon: BookOpen,
-    iconLabel: "Kelajakka Qadam",
-    title: "Minimal responsive promo website for an educational center.",
-    description:
-      "Showcases an educational center's links, courses, and information. Built with HTML5, CSS3, and JavaScript featuring clean layout and responsive design.",
-    meta: "HTML · CSS · JavaScript, 2024",
-    imageRatio: 16 / 10,
-    image: "/projects/kelajakka_qadam_markazi_lightMode.png",
-    imageAlt: "Kelajakka Qadam Markazi website screenshot",
-    githubUrl: "https://github.com/thefarrukhdev/KelajakkaQadam",
-    demoUrl: "https://kelajakka-qadam-markazi.vercel.app/",
   },
 ];
 
@@ -124,20 +125,20 @@ export type ExperienceEntry = {
 
 export const experience: ExperienceEntry[] = [
   {
-    company: "Independent",
-    role: "Frontend Developer",
+    company: "Independent Solutions",
+    role: "Fullstack / Frontend Engineer",
     period: "2024 – Present",
     brand: "#0AE448",
   },
   {
     company: "School 21 / 42 Network",
-    role: "Software Engineering Student",
+    role: "Software Engineering Program",
     period: "2024 – Present",
     brand: "#1f1f1f",
   },
   {
     company: "Najot Ta'lim",
-    role: "Frontend Development Program",
+    role: "Frontend Development Bootcamp",
     period: "Completed",
     brand: "#2F74C0",
   },
@@ -157,12 +158,12 @@ export type EducationEntry = {
 export const education: EducationEntry[] = [
   {
     school: "School 21 / 42 Network",
-    degree: "Software Engineering Program",
+    degree: "Software Engineering (Peer-to-Peer, C & Algorithms)",
     period: "2024 – Present",
   },
   {
     school: "Najot Ta'lim",
-    degree: "Frontend Development Program",
+    degree: "Modern Frontend Engineering (React, Next.js, TypeScript)",
     period: "Completed",
   },
 ];
@@ -172,18 +173,18 @@ export const education: EducationEntry[] = [
 /* -------------------------------------------------------------------------- */
 
 export const skills: string[] = [
-  "React.js",
-  "Next.js",
-  "TypeScript",
-  "Redux Toolkit",
-  "Zustand",
-  "REST APIs & Axios",
-  "Tailwind CSS",
-  "ShadCN UI",
-  "Git & GitHub",
-  "Vercel",
-  "Component Architecture",
-  "Web Performance Optimization",
+  "TypeScript & JavaScript (ES6+)",
+  "Next.js 15 (App Router, Server Actions)",
+  "React 19 & React Server Components",
+  "Node.js & NestJS Microservices",
+  "PostgreSQL & Prisma ORM",
+  "Tailwind CSS & ShadCN UI",
+  "Zustand & TanStack Query",
+  "Docker & CI/CD Pipelines",
+  "RESTful APIs & WebSockets",
+  "Vitest, Jest & Playwright",
+  "C & Low-Level Algorithms",
+  "Web Performance & Core Web Vitals",
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -202,7 +203,9 @@ export const stackChips: StackChip[] = [
   { label: "React", slug: "react", bg: "#1FB6CB", fg: "#ffffff" },
   { label: "Next.js", slug: "nextdotjs", bg: "#1f1f1f", fg: "#ffffff" },
   { label: "TypeScript", slug: "typescript", bg: "#2F74C0", fg: "#ffffff" },
-  { label: "Redux Toolkit", slug: "redux", bg: "#764ABC", fg: "#ffffff" },
+  { label: "NestJS", slug: "nestjs", bg: "#E0234E", fg: "#ffffff" },
+  { label: "PostgreSQL", slug: "postgresql", bg: "#4169E1", fg: "#ffffff" },
+  { label: "Docker", slug: "docker", bg: "#2496ED", fg: "#ffffff" },
   { label: "Tailwind CSS", slug: "tailwindcss", bg: "#2BBCF5", fg: "#ffffff" },
   { label: "Git", slug: "git", bg: "#F05032", fg: "#ffffff" },
   { label: "GitHub", slug: "github", bg: "#181717", fg: "#ffffff" },
@@ -216,7 +219,7 @@ export const stackChips: StackChip[] = [
 export const contact = {
   heading: "Let\u2019s connect",
   subtitle:
-    "I\u2019m always open to new opportunities and collaborations. Feel free to reach out through any of the channels below!",
+    "I\u2019m always open to discussing new engineering opportunities, full-stack projects, and technical collaborations. Feel free to reach out!",
   cta: { label: "See projects", href: "/projects" },
   socials: {
     email: "mailto:djumayev.dev@gmail.com",
@@ -224,5 +227,5 @@ export const contact = {
     github: "https://github.com/thefarrukhdev",
   },
   copyright: "2026 © Farrukh Djumayev",
-  role: "Frontend Developer",
+  role: "Software Engineer",
 } as const;
