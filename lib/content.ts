@@ -27,7 +27,7 @@ export const hero = {
   },
   ctas: {
     primary: { label: "View My Work", href: "/projects" },
-    resume: { label: "Resume", href: "/Farrukh_Resume.pdf?v=2" },
+    resume: { label: "Resume", href: "/Farrukh_Resume.pdf?v=3" },
   },
 } as const;
 
@@ -219,7 +219,7 @@ export const contact = {
     "I\u2019m always open to new opportunities and collaborations. Feel free to reach out through any of the channels below!",
   cta: { label: "See projects", href: "/projects" },
   socials: {
-    email: "mailto:farrukh.front.dev@gmail.com",
+    email: "mailto:djumayev.dev@gmail.com",
     linkedin: "https://www.linkedin.com/in/farrukhdjumayev",
     github: "https://github.com/thefarrukhdev",
   },
