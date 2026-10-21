@@ -20,7 +20,7 @@ export const hero = {
   name: "I\u2019m Farrukh",
   headingLines: ["I build things", "for the web."] as const,
   tagline:
-    "Software Engineer specializing in modern web architecture, high-performance interfaces, and full-stack systems with React, Next.js, TypeScript, and NestJS.",
+    "Frontend Engineer specializing in modern web architecture, high-performance interfaces, and responsive web applications with React, Next.js, TypeScript, and modern UI systems.",
   portrait: {
     src: "/farrukh.jpg",
     alt: "Farrukh Djumayev portrait",
@@ -126,7 +126,7 @@ export type ExperienceEntry = {
 export const experience: ExperienceEntry[] = [
   {
     company: "Independent Solutions",
-    role: "Fullstack / Frontend Engineer",
+    role: "Frontend Engineer",
     period: "2024 – Present",
     brand: "#0AE448",
   },
@@ -227,5 +227,5 @@ export const contact = {
     github: "https://github.com/thefarrukhdev",
   },
   copyright: "2026 © Farrukh Djumayev",
-  role: "Software Engineer",
+  role: "Frontend Engineer",
 } as const;
