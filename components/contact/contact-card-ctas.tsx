@@ -15,22 +15,25 @@ export function ContactCardCtas(): ReactNode {
     <LayoutGroup>
       <motion.div
         layout
-        transition={{ layout: { duration: 0.55, ease: EASE } }}
-        className="mt-2 flex flex-wrap items-center gap-3"
+        transition={{ layout: { duration: 0.35, ease: EASE } }}
+        className="mt-2 flex flex-wrap sm:flex-nowrap items-center gap-2.5 sm:gap-3"
       >
-        <ContactButton />
+        <div className="shrink-0">
+          <ContactButton />
+        </div>
 
         <motion.div
           layout
-          transition={{ layout: { duration: 0.55, ease: EASE } }}
+          transition={{ layout: { duration: 0.35, ease: EASE } }}
+          className="shrink-0"
         >
           <Link
             href={contact.cta.href}
-            className="border border-foreground/5 focus-ring group inline-flex cursor-pointer items-center gap-2 rounded-xl bg-background px-5 py-2.5 text-sm font-medium text-foreground shadow-md/2 transition-colors"
+            className="border border-foreground/5 focus-ring group inline-flex cursor-pointer items-center gap-2 rounded-xl bg-background px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-medium text-foreground shadow-md/2 transition-colors whitespace-nowrap shrink-0"
           >
             {contact.cta.label}
             <ArrowRight
-              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
+              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 shrink-0"
               aria-hidden="true"
             />
           </Link>
