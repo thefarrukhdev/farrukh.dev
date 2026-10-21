@@ -77,7 +77,7 @@ export const projects: Project[] = [
     image: "/projects/safaar.png",
     imageAlt: "Safaar Travel & Accommodation Platform screenshot",
     githubUrl: "https://github.com/thefarrukhdev/safaar",
-    demoUrl: "https://github.com/thefarrukhdev/safaar",
+    demoUrl: "https://safaar.uz/",
   },
   {
     id: "kokand-university",
