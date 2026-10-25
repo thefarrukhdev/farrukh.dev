@@ -1,5 +1,4 @@
-import { Mail } from "lucide-react";
-import Image from "next/image";
+import { Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -49,12 +48,12 @@ export function ContactCard(): ReactNode {
                   <SocialIcon
                     href={contact.socials.linkedin}
                     label="LinkedIn"
-                    imageSrc="/linkedin.svg"
+                    lucideIcon={Linkedin}
                   />
                   <SocialIcon
                     href={contact.socials.github}
                     label="GitHub"
-                    imageSrc="/x.svg"
+                    lucideIcon={Github}
                   />
                 </div>
                 <div className="flex flex-col items-center gap-1 text-center">
@@ -78,12 +77,10 @@ function SocialIcon({
   href,
   label,
   lucideIcon: LucideIcon,
-  imageSrc,
 }: {
   href: string;
   label: string;
-  lucideIcon?: React.ComponentType<{ className?: string; strokeWidth?: number }>;
-  imageSrc?: string;
+  lucideIcon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
 }): ReactNode {
   const isExternal = href.startsWith("http");
   const props = isExternal
@@ -93,21 +90,10 @@ function SocialIcon({
     <Link
       href={href}
       aria-label={label}
-      className="border-foreground/8 hover:border-foreground/15 focus-ring inline-flex h-11 w-11 items-center justify-center rounded-xl border bg-background text-foreground/70 transition-colors hover:text-foreground"
+      className="border-foreground/8 hover:border-foreground/15 focus-ring inline-flex h-11 w-11 items-center justify-center rounded-xl border bg-background text-foreground/70 transition-colors hover:text-foreground hover:bg-foreground/4"
       {...props}
     >
-      {LucideIcon ? (
-        <LucideIcon className="h-4 w-4" strokeWidth={2.5} aria-hidden="true" />
-      ) : imageSrc ? (
-        <Image
-          src={imageSrc}
-          alt=""
-          width={14}
-          height={14}
-          aria-hidden="true"
-          className="max-h-3.5 max-w-3.5 object-contain dark:invert"
-        />
-      ) : null}
+      <LucideIcon className="h-4 w-4" strokeWidth={2.2} aria-hidden="true" />
     </Link>
   );
 }

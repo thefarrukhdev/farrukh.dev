@@ -1,26 +1,29 @@
 import type { Metadata } from "next";
 
 export const siteConfig = {
-  name: "Farrukh Djumayev",
+  name: "Farrukh Jumayev",
   description:
-    "Frontend Engineer specializing in React and Next.js, focused on building modern, scalable, and maintainable web applications.",
-  url: "https://farrukh-portfolio-nextjs.vercel.app",
+    "Frontend Engineer specializing in React, Next.js, and TypeScript, focused on building scalable, performant, and accessible web platforms.",
+  url: "https://thefarrukhdev.vercel.app",
   ogImage: "/og-image.png",
-  creator: "@Farrukh_Djumayev",
+  creator: "@thefarrukhdev",
   authors: [
     {
-      name: "Farrukh Djumayev",
-      url: "https://farrukh-portfolio-nextjs.vercel.app",
+      name: "Farrukh Jumayev",
+      url: "https://thefarrukhdev.vercel.app",
     },
   ],
   keywords: [
-    "portfolio",
-    "frontend engineer",
-    "React",
-    "Next.js",
+    "Farrukh Jumayev",
+    "Frontend Engineer",
+    "React Developer",
+    "Next.js Developer",
     "TypeScript",
     "Tailwind CSS",
     "JavaScript",
+    "Software Engineer",
+    "School 21",
+    "Web Performance",
   ],
 } as const;
 

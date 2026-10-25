@@ -23,7 +23,7 @@ export const hero = {
     "Frontend Engineer specializing in modern web architecture, high-performance interfaces, and responsive web applications with React, Next.js, TypeScript, and modern UI systems.",
   portrait: {
     src: "/farrukh.jpg",
-    alt: "Farrukh Djumayev portrait",
+    alt: "Farrukh Jumayev portrait",
   },
   ctas: {
     primary: { label: "View My Work", href: "/projects" },
@@ -69,10 +69,10 @@ export const projects: Project[] = [
     icon: Building2,
     iconLabel: "Safaar Booking",
     title:
-      "Full-stack accommodation and travel booking monorepo with client portal and administrative dashboard.",
+      "Modern accommodation and travel booking platform with multi-step reservation flows and host dashboards.",
     description:
-      "Architected a scalable full-stack accommodation booking monorepo with dedicated client reservation portal and administrative property dashboard. Designed relational PostgreSQL schemas with atomic transactions and isolation levels to handle room reservation workflows and eliminate race conditions. Implemented role-based access control (RBAC) and Dockerized microservices.",
-    meta: "Next.js 15 · NestJS · TypeScript · PostgreSQL · Prisma · Docker, 2026",
+      "Architected the responsive client booking interface and administrative property dashboard. Engineered multi-step reservation workflows with dynamic date-range pickers, room availability filters, and guest forms. Integrated NestJS REST APIs with client-side state management for real-time booking confirmation and authenticated user sessions.",
+    meta: "Next.js 15 · TypeScript · Tailwind CSS · REST APIs, 2026",
     imageRatio: 16 / 10,
     image: "/projects/safaar.png",
     imageAlt: "Safaar Travel & Accommodation Platform screenshot",
@@ -226,6 +226,6 @@ export const contact = {
     linkedin: "https://www.linkedin.com/in/farrukhdjumayev",
     github: "https://github.com/thefarrukhdev",
   },
-  copyright: "2026 © Farrukh Djumayev",
+  copyright: "2026 © Farrukh Jumayev",
   role: "Frontend Engineer",
 } as const;
