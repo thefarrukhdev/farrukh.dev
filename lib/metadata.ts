@@ -30,7 +30,7 @@ export const siteConfig = {
 export const baseMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.name,
+    default: `${siteConfig.name} — Frontend Engineer`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -98,15 +98,21 @@ export function createMetadata({
 }): Metadata {
   const url = `${siteConfig.url}${path}`;
   const ogImage = image ?? siteConfig.ogImage;
+  const isHome = path === "/" || !title || title === "Home";
+  const displayTitle = isHome
+    ? `${siteConfig.name} — Frontend Engineer`
+    : `${title} | ${siteConfig.name}`;
 
   return {
-    title,
-    description,
+    title: isHome
+      ? { absolute: `${siteConfig.name} — Frontend Engineer` }
+      : title,
+    description: description ?? siteConfig.description,
     alternates: {
       canonical: path,
     },
     openGraph: {
-      title: title ?? siteConfig.name,
+      title: displayTitle,
       description: description ?? siteConfig.description,
       url,
       images: [
@@ -114,12 +120,12 @@ export function createMetadata({
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: title ?? siteConfig.name,
+          alt: displayTitle,
         },
       ],
     },
     twitter: {
-      title: title ?? siteConfig.name,
+      title: displayTitle,
       description: description ?? siteConfig.description,
       images: [ogImage],
     },
