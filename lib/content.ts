@@ -1,5 +1,6 @@
 import {
   BookOpen,
+  Boxes,
   Briefcase,
   Building2,
   Wallet,
@@ -78,6 +79,20 @@ export const projects: Project[] = [
     imageAlt: "Safaar Travel & Accommodation Platform screenshot",
     githubUrl: "https://github.com/thefarrukhdev/safaar",
     demoUrl: "https://safaar.uz/",
+  },
+  {
+    id: "bunkerstroy",
+    icon: Boxes,
+    iconLabel: "BunkerStroy",
+    title:
+      "Enterprise B2B marketplace featuring heavy logistics tracking and AI material estimation workflows.",
+    description:
+      "Architected an end-to-end B2B construction marketplace and logistics catalog. Integrated Google Gemini AI with structured JSON schema validation for automated technical material estimation, and engineered responsive data tables with client caching (TanStack Query) to render 1,000+ SKU inventory items smoothly.",
+    meta: "Turborepo · Next.js · Node.js · TypeScript · Gemini AI · Tailwind CSS, 2026",
+    imageRatio: 16 / 10,
+    image: "/projects/bunkerstroy.png",
+    imageAlt: "BunkerStroy B2B Marketplace screenshot",
+    demoUrl: "https://bunkerstroy.uz/",
   },
   {
     id: "kokand-university",
