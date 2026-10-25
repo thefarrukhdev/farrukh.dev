@@ -1,4 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
-  <rect width="180" height="180" rx="40" fill="#0066FF"/>
-  <path d="M40 60h100M40 90h100M40 120h70" stroke="white" stroke-width="12" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+    <linearGradient id="letter" x1="38" y1="32" x2="92" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e4e4e7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Squircle -->
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <rect x="1" y="1" width="126" height="126" rx="27" stroke="#27272a" stroke-width="2" stroke-opacity="0.8"/>
+
+  <!-- Monogram F -->
+  <!-- Vertical Stem -->
+  <rect x="38" y="32" width="16" height="64" rx="4" fill="url(#letter)"/>
+  <!-- Top Arm -->
+  <rect x="38" y="32" width="54" height="15" rx="4" fill="url(#letter)"/>
+  <!-- Middle Arm -->
+  <rect x="38" y="58" width="40" height="14" rx="4" fill="url(#letter)"/>
+  
+  <!-- Modern Accent Dot (Electric Blue) -->
+  <circle cx="88" cy="90" r="6.5" fill="#3b82f6"/>
 </svg>
