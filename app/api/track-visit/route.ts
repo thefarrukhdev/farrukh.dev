@@ -23,12 +23,63 @@ function parseDevice(ua: string) {
   return { os, browser, deviceType };
 }
 
+interface IpEnrichment {
+  isp?: string;
+  org?: string;
+  city?: string;
+  country?: string;
+  lat?: number;
+  lon?: number;
+  isMobile?: boolean;
+  isProxy?: boolean;
+  asNumber?: string;
+}
+
+async function enrichIp(ip: string): Promise<IpEnrichment> {
+  // Agar lokal yoki ichki IP bo'lsa, tashqi API chaqirmaymiz
+  if (
+    !ip ||
+    ip === "127.0.0.1" ||
+    ip === "::1" ||
+    ip.startsWith("192.168.") ||
+    ip.startsWith("10.") ||
+    ip.startsWith("172.")
+  ) {
+    return {};
+  }
+
+  try {
+    const url = `http://ip-api.com/json/${ip}?fields=status,country,regionName,city,lat,lon,isp,org,as,mobile,proxy,hosting`;
+    const res = await fetch(url, {
+      signal: AbortSignal.timeout(1200),
+    });
+    if (!res.ok) return {};
+    const data = await res.json();
+    if (data.status !== "success") return {};
+
+    return {
+      isp: data.isp,
+      org: data.org,
+      city: data.city,
+      country: data.country,
+      lat: data.lat,
+      lon: data.lon,
+      isMobile: Boolean(data.mobile),
+      isProxy: Boolean(data.proxy || data.hosting),
+      asNumber: data.as,
+    };
+  } catch {
+    return {};
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
     const {
       type = "visit",
       vid = "usr_anon",
+      hwHash = "",
       visitCount = 1,
       isReturning = false,
       initialSource = "",
@@ -39,6 +90,9 @@ export async function POST(req: NextRequest) {
       referrer = "Bo'sh",
       screen = "Noma'lum",
       viewport = "Noma'lum",
+      refreshRate = "",
+      colorGamut = "",
+      battery = "",
       gpu = "Noma'lum GPU",
       cpu = "Noma'lum",
       ram = "Noma'lum",
@@ -49,29 +103,35 @@ export async function POST(req: NextRequest) {
       meta = {},
     } = body;
 
-    // IP va Vercel Geo ma'lumotlarini olish
+    // IP Extraction
     const forwardedFor = req.headers.get("x-forwarded-for");
     const realIp = req.headers.get("x-real-ip");
     const ip = forwardedFor
       ? forwardedFor.split(",")[0]?.trim() || "127.0.0.1"
       : realIp || "127.0.0.1";
 
-    const country = req.headers.get("x-vercel-ip-country");
-    const city = req.headers.get("x-vercel-ip-city");
-    const region = req.headers.get("x-vercel-ip-country-region");
-    const lat = req.headers.get("x-vercel-ip-latitude");
-    const lon = req.headers.get("x-vercel-ip-longitude");
-    const asNumber = req.headers.get("x-vercel-ip-as-number");
-    const postal = req.headers.get("x-vercel-ip-postal-code");
+    // Vercel Geolocation headers
+    const vCountry = req.headers.get("x-vercel-ip-country");
+    const vCity = req.headers.get("x-vercel-ip-city");
+    const vRegion = req.headers.get("x-vercel-ip-country-region");
+    const vLat = req.headers.get("x-vercel-ip-latitude");
+    const vLon = req.headers.get("x-vercel-ip-longitude");
+
+    // Server-side IP Enrichment (ISP, Organization, VPN, Mobile/Fiber)
+    const ipInfo = await enrichIp(ip);
+
+    const country = ipInfo.country || vCountry || "Noma'lum";
+    const city = ipInfo.city || (vCity ? decodeURIComponent(vCity) : "");
+    const lat = ipInfo.lat ? String(ipInfo.lat) : vLat;
+    const lon = ipInfo.lon ? String(ipInfo.lon) : vLon;
 
     let locationText = "Lokal / Aniqlanmadi";
-    if (country) {
-      const locParts = [];
-      if (city) locParts.push(decodeURIComponent(city));
-      if (region) locParts.push(region);
-      locParts.push(country);
-      if (postal) locParts.push(`[${postal}]`);
-      locationText = locParts.join(", ");
+    if (country !== "Noma'lum") {
+      const parts = [];
+      if (city) parts.push(city);
+      if (vRegion && !city.includes(vRegion)) parts.push(vRegion);
+      parts.push(country);
+      locationText = parts.join(", ");
     }
 
     const now = new Date();
@@ -91,7 +151,7 @@ export async function POST(req: NextRequest) {
     let message = "";
 
     if (type === "event") {
-      // 🎯 FOYDALANUVCHI HARAKATI (Masalan: Rezyumeni ko'rdi, 40s o'qidi, loyihani ochdi)
+      // 🎯 FOYDALANUVCHI HARAKATI (Nusxaladi, rezyumeni ochdi, scroll qildi)
       const metaLines: string[] = [];
       if (meta && typeof meta === "object") {
         for (const [k, v] of Object.entries(meta)) {
@@ -104,6 +164,7 @@ export async function POST(req: NextRequest) {
         `━━━━━━━━━━━━━━━━━━━━`,
         `🔥 <b>Harakat:</b> ${escapeHtml(action)}`,
         `👤 <b>Foydalanuvchi:</b> <code>#${escapeHtml(vid)}</code> (${visitCount}-tashrif)`,
+        hwHash ? `🧬 <b>Apparat kodi:</b> <code>#hw_${escapeHtml(hwHash)}</code>` : "",
         `📌 <b>Manbasi:</b> ${escapeHtml(sourceBadge)}`,
         `📄 <b>Joriy sahifa:</b> <code>${escapeHtml(path)}</code>`,
         ...(metaLines.length > 0 ? [``, ...metaLines] : []),
@@ -111,9 +172,11 @@ export async function POST(req: NextRequest) {
         `📍 <b>Joylashuv:</b> ${escapeHtml(locationText)}`,
         `🌐 <b>IP:</b> <code>${escapeHtml(ip)}</code>`,
         `⏰ <b>Vaqt:</b> ${timeFormatted} (Toshkent)`,
-      ].join("\n");
+      ]
+        .filter(Boolean)
+        .join("\n");
     } else {
-      // ⚡️ TO'LIQ KIRISH TELEMETRIYASI
+      // ⚡️ TO'LIQ PASSIV TELEMETRIYA VA SILICON BARMOQ IZI
       const title = isReturning
         ? `🔥 <b>QAYTA TASHRIF! (${visitCount}-marta kirdi)</b>`
         : `⚡️ <b>YANGI TASHRIFCHI ANIQLANDI!</b>`;
@@ -122,28 +185,48 @@ export async function POST(req: NextRequest) {
         ? `🗺 <b>Xarita:</b> <a href="https://maps.google.com/?q=${lat},${lon}">Google Maps'da ko'rish</a>`
         : "";
 
-      const ispText = asNumber ? `(ASN: ${escapeHtml(asNumber)})` : "";
+      // Tarmoq va Provayder xulosasi
+      const networkTypeBadge = ipInfo.isMobile
+        ? "📱 Mobil internet (4G/5G)"
+        : "🏠 Simli Wi-Fi / Ofis interneti";
+
+      const vpnBadge = ipInfo.isProxy
+        ? "⚠️ VPN / Proksi aniqlandi"
+        : "🟢 Haqiqiy IP (VPN yo'q)";
+
+      const ispLine = ipInfo.isp
+        ? `🏢 <b>Provayder:</b> ${escapeHtml(ipInfo.isp)}${ipInfo.org && ipInfo.org !== ipInfo.isp ? ` (${escapeHtml(ipInfo.org)})` : ""}`
+        : "";
 
       message = [
         title,
         `━━━━━━━━━━━━━━━━━━━━`,
         `📌 <b>Manba:</b> ${escapeHtml(sourceBadge)}`,
         inApp ? `📱 <b>Ilova:</b> ${escapeHtml(inApp)}` : "",
-        refParam ? `🏷 <b>Havola parametri:</b> <code>${escapeHtml(refParam)}</code>` : "",
+        refParam ? `🏷 <b>Teg (Parametr):</b> <code>${escapeHtml(refParam)}</code>` : "",
         referrer && referrer !== "Bo'sh" ? `🔗 <b>Referrer:</b> ${escapeHtml(referrer)}` : "",
         isReturning && initialSource ? `🕰 <b>Ilk kelgan manbasi:</b> ${escapeHtml(initialSource)}` : "",
         ``,
-        `📍 <b>Joylashuv:</b> ${escapeHtml(locationText)}`,
-        mapsLink,
-        `🌐 <b>IP:</b> <code>${escapeHtml(ip)}</code> ${ispText}`,
-        `🕒 <b>Vaqt mintaqasi:</b> ${escapeHtml(timezone)}`,
+        `🏢 <b>Tarmoq & Provayder:</b>`,
+        ispLine,
+        `• <b>Aloqa:</b> ${networkTypeBadge} | ${vpnBadge}`,
+        `• <b>IP:</b> <code>${escapeHtml(ip)}</code>`,
         ``,
-        `💻 <b>Qurilma:</b> ${deviceType} — <b>${escapeHtml(os)}</b> / <b>${escapeHtml(browser)}</b>`,
-        `🎮 <b>Videokarta (GPU):</b> <code>${escapeHtml(gpu)}</code>`,
-        `🧠 <b>Texnik quvvat:</b> ${escapeHtml(cpu)} | ${escapeHtml(ram)}`,
-        `📐 <b>Ekran:</b> ${escapeHtml(screen)} (Viewport: ${escapeHtml(viewport)})`,
-        `📶 <b>Tarmoq aloqasi:</b> ${escapeHtml(connection)}`,
-        `🗣 <b>Tizim tillari:</b> ${escapeHtml(languages)}`,
+        `📍 <b>Geografiya:</b>`,
+        `• <b>Joylashuv:</b> ${escapeHtml(locationText)}`,
+        mapsLink,
+        `• <b>Vaqt mintaqasi:</b> ${escapeHtml(timezone)}`,
+        ``,
+        `💻 <b>Qurilma & Apparatli Barmoq Izi:</b>`,
+        `• <b>Qurilma:</b> ${deviceType} — <b>${escapeHtml(os)}</b> / <b>${escapeHtml(browser)}</b>`,
+        hwHash ? `• <b>Silicon ID:</b> <code>#hw_${escapeHtml(hwHash)}</code>` : "",
+        `• <b>Videokarta (GPU):</b> <code>${escapeHtml(gpu)}</code>`,
+        `• <b>Tizim kuchi:</b> ${escapeHtml(cpu)} | ${escapeHtml(ram)}`,
+        `• <b>Ekran:</b> ${escapeHtml(screen)} (Viewport: ${escapeHtml(viewport)}) ${refreshRate ? `[${escapeHtml(refreshRate)}]` : ""}`,
+        colorGamut ? `• <b>Rang formati:</b> ${escapeHtml(colorGamut)}` : "",
+        battery && battery !== "Noma'lum" ? `• <b>Batareya:</b> ${escapeHtml(battery)}` : "",
+        connection && connection !== "Noma'lum" ? `• <b>Aloqa tezligi:</b> ${escapeHtml(connection)}` : "",
+        `• <b>Tizim tillari:</b> ${escapeHtml(languages)}`,
         ``,
         `📄 <b>Kirgan sahifasi:</b> <code>${escapeHtml(path)}</code>`,
         `⏰ <b>Toshkent vaqti:</b> ${timeFormatted}`,
