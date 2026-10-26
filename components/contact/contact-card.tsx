@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { ContactCardCtas } from "./contact-card-ctas";
+import { QuickContactForm } from "./quick-contact-form";
 import { FadeIn } from "@/components/ui/motion-primitives";
 import { contact } from "@/lib/content";
 import { ShaderFlow } from "../shaders/shader-flow";
@@ -32,9 +33,12 @@ export function ContactCard(): ReactNode {
                 <h2 className="font-serif text-[2.25rem] font-medium leading-[1.05] tracking-tight text-foreground sm:text-[2.75rem] lg:text-[3.25rem]">
                   {contact.heading}
                 </h2>
-                <p className="max-w-[29ch] text-[18px] leading-[1.4] tracking-tight text-foreground/65 sm:text-[22px] mb-6">
+                <p className="max-w-[29ch] text-[18px] leading-[1.4] tracking-tight text-foreground/65 sm:text-[22px] mb-2">
                   {contact.subtitle}
                 </p>
+                <div className="mb-3">
+                  <QuickContactForm />
+                </div>
                 <ContactCardCtas />
               </div>
 
