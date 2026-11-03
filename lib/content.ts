@@ -237,7 +237,7 @@ export const contact = {
     "I\u2019m always open to discussing new engineering opportunities, full-stack projects, and technical collaborations. Feel free to reach out!",
   cta: { label: "See projects", href: "/projects" },
   socials: {
-    email: "mailto:djumayev.dev@gmail.com",
+    email: "mailto:the.farrukh.dev@gmail.com",
     linkedin: "https://www.linkedin.com/in/farrukhdjumayev",
     github: "https://github.com/thefarrukhdev",
   },

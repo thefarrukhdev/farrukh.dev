@@ -5,7 +5,7 @@ import { Check, Copy, Loader2, Mail, Send, X } from "lucide-react";
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { useContact } from "./contact-context";
 
-const EMAIL = "farrukh.front.dev@gmail.com";
+const EMAIL = "the.farrukh.dev@gmail.com";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function ContactModal(): ReactNode {
